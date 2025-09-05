@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Unfollow Manager</title>
+    <!-- Updated Favicon URL -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233b82f6' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.32 15.68c-.68 0-1.28-.4-1.57-1.1L12 11.53l-1.75 3.05c-.32.6-.96 1.02-1.66 1.02-.7 0-1.34-.42-1.66-1.02L6.1 11.53c-.34-.6-.28-1.32.14-1.85.42-.53 1.07-.85 1.77-.85h1.79c.98 0 1.8.76 1.95 1.72L12 14.1l.36-1.24c.15-.96.97-1.72 1.95-1.72h1.79c.7 0 1.35.32 1.77.85.42.53.48 1.25.14 1.85L15.32 17.68z'/%3E%3C/svg%3E" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/twitter_unfollow_manager.css')}}">
+</head>
+<body class="bg-gray-100 min-h-screen p-4 sm:p-8 flex flex-col items-center">
+    <canvas id="interactive-bg-canvas"></canvas>
+
+    <!-- Main App Container -->
+    <div id="app" class="bg-white rounded-3xl shadow-xl w-full max-w-4xl p-6 sm:p-10 flex flex-col items-center z-10 relative">
+
+        <!-- Header Section -->
+        <header class="text-center mb-6 w-full">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-2">
+                Unfollow Manager
+            </h1>
+            <p class="text-gray-500 text-lg sm:text-xl">
+                Find and unfollow inactive accounts.
+            </p>
+        </header>
+
+        <!-- Information Section -->
+        <div id="info-section" class="w-full text-center mb-8 px-4 sm:px-0">
+            <p class="text-gray-600 text-base sm:text-lg mb-6 leading-relaxed">
+                Clean up your Twitter feed effortlessly. Our Unfollow Manager helps you identify and remove accounts that are no longer active, so you can focus on the content that matters.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+                <div class="p-4 bg-blue-50 rounded-xl shadow-inner">
+                    <h3 class="font-bold text-lg text-blue-800 mb-2">Automated Scoring</h3>
+                    <p class="text-sm text-gray-600">We analyze each account you follow and generate a score based on their activity and engagement.</p>
+                </div>
+                <div class="p-4 bg-blue-50 rounded-xl shadow-inner">
+                    <h3 class="font-bold text-lg text-blue-800 mb-2">Easy Unfollowing</h3>
+                    <p class="text-sm text-gray-600">Select multiple accounts at once and unfollow them in a single click, saving you time and effort.</p>
+                </div>
+                <div class="p-4 bg-blue-50 rounded-xl shadow-inner">
+                    <h3 class="font-bold text-lg text-blue-800 mb-2">Simple & Secure</h3>
+                    <p class="text-sm text-gray-600">Connect securely with your Twitter account—we only request the permissions needed to manage your following list.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Testimonial Section -->
+        <section id="testimonials-section" class="w-full mb-8">
+            <h2 class="text-3xl font-extrabold text-gray-800 text-center mb-6">What Users Are Saying</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg transform hover:scale-[1.03] transition-transform duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/thumb/men/1.jpg" alt="Jason T.'s profile picture" class="w-12 h-12 rounded-full mr-4 ring-2 ring-gray-200">
+                        <div>
+                            <p class="font-bold text-gray-800">Jason T.</p>
+                            <p class="text-sm text-gray-500">@jason.t</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"This tool is a lifesaver! My feed is so much cleaner now. The score system is surprisingly accurate and helpful."</p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg transform hover:scale-[1.03] transition-transform duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/thumb/women/2.jpg" alt="Sarah K.'s profile picture" class="w-12 h-12 rounded-full mr-4 ring-2 ring-gray-200">
+                        <div>
+                            <p class="font-bold text-gray-800">Sarah K.</p>
+                            <p class="text-sm text-gray-500">@sarah.k</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"I've been looking for something like this for ages. Simple, effective, and gets the job done without any hassle. Highly recommend it."</p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg transform hover:scale-[1.03] transition-transform duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/thumb/men/3.jpg" alt="Alex M.'s profile picture" class="w-12 h-12 rounded-full mr-4 ring-2 ring-gray-200">
+                        <div>
+                            <p class="font-bold text-gray-800">Alex M.</p>
+                            <p class="text-sm text-gray-500">@alex.m</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Unfollow Manager is a must-have for anyone serious about their Twitter experience. The interface is clean and easy to navigate."</p>
+                </div>
+                <!-- Testimonial 4 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg transform hover:scale-[1.03] transition-transform duration-300 cursor-pointer">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/thumb/women/4.jpg" alt="Maria B.'s profile picture" class="w-12 h-12 rounded-full mr-4 ring-2 ring-gray-200">
+                        <div>
+                            <p class="font-bold text-gray-800">Maria B.</p>
+                            <p class="text-sm text-gray-500">@maria.b</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"I was shocked by how many inactive accounts I was following. Thanks to this app, I've cleared out the clutter. Great work!"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main app interface -->
+        <div id="main-ui" class="w-full">
+
+            <div id="connect-section" class="text-center">
+                <button id="connect-btn" class="connect-btn-gradient text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 duration-200">
+                    <span id="connect-btn-text">Connect with Twitter</span>
+                    <div id="connect-spinner" class="spinner mx-auto hidden"></div>
+                </button>
+                <p id="status-message" class="mt-4 text-gray-600 font-semibold"></p>
+            </div>
+
+            <!-- List and controls section (initially hidden) -->
+            <div id="unfollow-section" class="hidden mt-8">
+                <!-- User Profile Section -->
+                <div id="user-profile" class="mb-6 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 p-4 bg-gray-50 rounded-lg shadow-inner">
+                    <!-- Profile content will be loaded here -->
+                </div>
+                
+                <!-- New: Search and Sort Controls -->
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div class="relative w-full sm:w-auto flex-1">
+                        <input type="text" id="search-input" placeholder="Search by name or handle..." class="w-full p-2 pr-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <button id="clear-search-btn" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hidden">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                        <label for="sort-select" class="text-sm font-semibold text-gray-700">Sort by:</label>
+                        <select id="sort-select" class="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                            <option value="score-asc">Score: Low to High</option>
+                            <option value="score-desc">Score: High to Low</option>
+                            <option value="name-asc">Name: A-Z</option>
+                            <option value="name-desc">Name: Z-A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+                    <div class="flex items-center space-x-2 mb-4 sm:mb-0">
+                        <input type="checkbox" id="select-all-checkbox" class="h-5 w-5 text-blue-600 rounded focus:ring-blue-500">
+                        <label for="select-all-checkbox" class="text-sm sm:text-base font-semibold text-gray-700">Select All</label>
+                    </div>
+                    <button id="unfollow-selected-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105 duration-200">
+                        <span id="unfollow-btn-text">Unfollow Selected (<span id="selected-count">0</span>)</span>
+                        <div id="unfollow-spinner" class="spinner mx-auto hidden"></div>
+                    </button>
+                </div>
+                
+                <!-- Users list -->
+                <div id="user-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- User cards will be injected here by JavaScript -->
+                </div>
+
+                <div class="flex justify-center mt-6">
+                    <button id="disconnect-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-transform transform hover:scale-105 duration-200">
+                        Disconnect
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unfollow Confirmation Modal -->
+    <div id="unfollow-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 flex items-center justify-center">
+        <div class="relative p-8 bg-white w-full max-w-md m-4 sm:m-auto rounded-3xl shadow-xl">
+            <h2 class="text-xl font-bold mb-4">Confirm Unfollow</h2>
+            <p class="mb-4 text-gray-600">Are you sure you want to unfollow the following accounts?</p>
+            <ul id="modal-user-list" class="space-y-2 mb-6 max-h-48 overflow-y-auto p-2 rounded-lg bg-gray-50 border border-gray-200"></ul>
+            <div class="flex justify-end space-x-4">
+                <button id="modal-cancel-btn" class="bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-full hover:bg-gray-300 transition-colors">
+                    Cancel
+                </button>
+                <button id="modal-confirm-btn" class="bg-red-500 text-white font-bold py-2 px-6 rounded-full hover:bg-red-600 transition-colors">
+                    Confirm Unfollow
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Fancy Footer -->
+    <footer class="mt-8 text-center text-gray-400 text-sm">
+        <p>Built with <span class="text-red-500">♥</span> using Mock Data and Tailwind CSS by <a href="https://x.com/sirlinuxx" class="text-blue-600 font-semibold hover:text-teal-500 text-lg md:text-xl transition duration-300 tracking-wide">Sirlinux</a> </p>
+        <p>&copy; 2025 Unfollow Manager. All rights reserved.</p>
+    </footer>
+
+    <script src="{{url_for('static', filename='js/twitter_unfollow_manager.js')}}"></script>
+</body>
+</html>
